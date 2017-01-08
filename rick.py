@@ -11,7 +11,7 @@ def rickify(text):
     return new_text
 
 def apply_morty_rule(sentence):
-    morty_chance=.7
+    morty_chance=.07
     
     sentence_stoppers=('.','!','?')
     if not sentence.endswith(sentence_stoppers):
@@ -27,6 +27,17 @@ def apply_morty_rule(sentence):
     
 def apply_burp_rule(sentence):
     burp_chance=.4
+    
+    dice=random.random()
+    if dice<=burp_chance:
+        possible_burp_places=[i for i, ltr in enumerate(sentence) if ltr == ' ']
+        if len(possible_burp_places)<1:
+            return sentence
+            
+        insert_index=possible_burp_places[random.randint(0,len(possible_burp_places))]
+        new_sentence=sentence[0:insert_index]+" *burp*"+sentence[insert_index:]
+        return new_sentence
+        
     return sentence
 
 def break_into_sentences(text):
