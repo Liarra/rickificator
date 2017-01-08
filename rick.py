@@ -11,7 +11,7 @@ def rickify(text):
     return new_text
 
 def apply_morty_rule(sentence):
-    morty_chance=.07
+    morty_chance=.1
     
     sentence_stoppers=('.','!','?')
     if not sentence.endswith(sentence_stoppers):
@@ -20,7 +20,6 @@ def apply_morty_rule(sentence):
     dice=random.random()
     if dice<=morty_chance:
         insert_index= next((i for i, ch  in enumerate(sentence) if ch in sentence_stoppers),None)
-        print (insert_index)
         new_sentence=sentence[0:insert_index]+", Morty"+sentence[insert_index:]
         return new_sentence
     return sentence
@@ -31,10 +30,15 @@ def apply_burp_rule(sentence):
     dice=random.random()
     if dice<=burp_chance:
         possible_burp_places=[i for i, ltr in enumerate(sentence) if ltr == ' ']
-        if len(possible_burp_places)<1:
+        if len(possible_burp_places)<2:
             return sentence
-            
-        insert_index=possible_burp_places[random.randint(0,len(possible_burp_places))]
+        
+        try:    
+            insert_index=possible_burp_places[random.randint(0,len(possible_burp_places))]
+        
+        except IndexError:
+            print(sentence)
+            return sentence
         new_sentence=sentence[0:insert_index]+" *burp*"+sentence[insert_index:]
         return new_sentence
         
@@ -50,7 +54,7 @@ def break_into_sentences(text):
     websites = "[.](com|net|org|io|gov)"
     
     text = " " + text + "  "
-    text = text.replace("\n"," ")
+    #text = text.replace("\n"," ")
     text = re.sub(prefixes,"\\1<prd>",text)
     text = re.sub(websites,"<prd>\\1",text)
     if "Ph.D" in text: text = text.replace("Ph.D.","Ph<prd>D<prd>")
@@ -78,6 +82,8 @@ def break_into_sentences(text):
     return sentences
 
 
-print (rickify(
-"How can this even happen to me???"
-))
+#print (rickify("How can this even happen to me???"))
+content=open("test", 'r').read()
+out=open('out','w+')
+out.write(rickify(content))
+out.close()
