@@ -1,12 +1,13 @@
 import random
 
 def rickify(text):
-    new_text=""
+    new_text=text
     sentences=break_into_sentences(text)
     for s in sentences:
-        s=apply_morty_rule(s)
-        s=apply_burp_rule(s)
-        new_text=new_text+s+" "
+        new_s=s
+        new_s=apply_morty_rule(new_s)
+        new_s=apply_burp_rule(new_s)
+        new_text=new_text.replace(s,new_s)
     
     return new_text
 
