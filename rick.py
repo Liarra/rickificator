@@ -11,7 +11,7 @@ def rickify(text):
     return new_text
 
 def apply_morty_rule(sentence):
-    morty_chance=.05
+    morty_chance=.7
     
     sentence_stoppers=('.','!','?')
     if not sentence.endswith(sentence_stoppers):
@@ -20,6 +20,7 @@ def apply_morty_rule(sentence):
     dice=random.random()
     if dice<=morty_chance:
         insert_index= next((i for i, ch  in enumerate(sentence) if ch in sentence_stoppers),None)
+        print (insert_index)
         new_sentence=sentence[0:insert_index]+", Morty"+sentence[insert_index:]
         return new_sentence
     return sentence
@@ -53,6 +54,9 @@ def break_into_sentences(text):
     if "\"" in text: text = text.replace(".\"","\".")
     if "!" in text: text = text.replace("!\"","\"!")
     if "?" in text: text = text.replace("?\"","\"?")
+    text = text.replace("...",".")
+    text = text.replace("???","?")
+    text = text.replace("!!!","!")
     text = text.replace(".",".<stop>")
     text = text.replace("?","?<stop>")
     text = text.replace("!","!<stop>")
@@ -63,4 +67,6 @@ def break_into_sentences(text):
     return sentences
 
 
-print (rickify("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."))
+print (rickify(
+"How can this even happen to me???"
+))
