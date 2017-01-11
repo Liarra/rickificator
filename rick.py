@@ -22,25 +22,20 @@ def apply_morty_rule(sentence):
     dice=random.random()
     if dice<=morty_chance:
         insert_index= next((i for i, ch  in enumerate(sentence) if ch in sentence_stoppers),None)
-        new_sentence=sentence[0:insert_index]+", Morty"+sentence[insert_index:]
+        new_sentence=sentence[0:-1]+", Morty"+sentence[-1:]
         return new_sentence
     return sentence
     
 def apply_burp_rule(sentence):
     burp_chance=.4
     
+    possible_burp_places=[i for i, ltr in enumerate(sentence) if ltr == ' ']
+    if len(possible_burp_places)<2:
+        return sentence
+    
     dice=random.random()
     if dice<=burp_chance:
-        possible_burp_places=[i for i, ltr in enumerate(sentence) if ltr == ' ']
-        if len(possible_burp_places)<2:
-            return sentence
-        
-        try:    
-            insert_index=possible_burp_places[random.randint(0,len(possible_burp_places))]
-        
-        except IndexError:
-            print(sentence)
-            return sentence
+        insert_index=possible_burp_places[random.randint(0,len(possible_burp_places)-1)]
         new_sentence=sentence[0:insert_index]+" *burp*"+sentence[insert_index:]
         return new_sentence
         
