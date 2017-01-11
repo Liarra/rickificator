@@ -6,6 +6,7 @@ def rickify(text):
     for s in sentences:
         new_s=s
         new_s=apply_morty_rule(new_s)
+        new_s=apply_repetition_rule(new_s)
         new_s=apply_burp_rule(new_s)
         new_text=new_text.replace(s,new_s)
     
@@ -44,6 +45,24 @@ def apply_burp_rule(sentence):
         return new_sentence
         
     return sentence
+    
+def apply_repetition_rule(sentence):
+    rep_chance=.5
+    starters=("it's", "he's", "she's", "they're", "I'm", "you're", "that's", "those", "this")
+    
+    if not sentence.lower().startswith(starters):
+        return sentence
+        
+    dice=random.random()
+    if dice<=rep_chance:
+        first_word_end=sentence.index(' ')
+        first_word=sentence[0:first_word_end]
+        new_sentence=first_word+"~ "+sentence[0:1].lower()+sentence[1:]
+        
+        return new_sentence
+    return sentence
+    
+    
 
 def break_into_sentences(text):
     import re
