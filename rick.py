@@ -12,6 +12,7 @@ def rickify(text):
     
     return new_text
 
+
 def apply_morty_rule(sentence):
     morty_chance=.1
     
@@ -58,7 +59,9 @@ def apply_repetition_rule(sentence):
     return sentence
     
     
-
+"""
+A slightly modified version of Stackoverflow answer: http://stackoverflow.com/a/31505798
+"""
 def break_into_sentences(text):
     import re
     caps = "([A-Z])"
@@ -98,6 +101,7 @@ def break_into_sentences(text):
 
 
 #print (rickify("How can this even happen to me???"))
+
 content=open("test", 'r').read()
 out=open('out','w+')
 out.write(rickify(content))
